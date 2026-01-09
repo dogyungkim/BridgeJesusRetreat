@@ -91,11 +91,11 @@ export function RegistrationForm() {
         {/* 행사 정보 */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-center text-2xl">2026 브릿지저스 겨울수련회 ☃️💙</CardTitle>
+            <CardTitle className="text-center text-xl md:text-2xl whitespace-nowrap">2026 브릿지저스 겨울수련회 ☃️💙</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="text-center space-y-2">
-              <p className="text-lg">💌 주제: 청지기 (청년이여, 지금 기도하라!)</p>
+              <p className="text-base">💌 주제: 청지기 (청년이여, 지금 기도하라!)</p>
               <p className="text-base">🗓️ 일정: 2026년 2월 5일(목) ~ 2월 7일(토)</p>
               <p className="text-base">📍 장소: 경기 화성시 팔탄면 마당바위로 135-21 청호인재개발원</p>
             </div>
@@ -196,17 +196,26 @@ export function RegistrationForm() {
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex gap-4"
+                      className="flex gap-3"
                     >
                       {GENDERS.map((gender) => (
-                        <FormItem key={gender} className="flex items-center space-x-2 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value={gender} />
-                          </FormControl>
-                          <FormLabel className="font-normal cursor-pointer">
-                            {gender}
-                          </FormLabel>
-                        </FormItem>
+                        <label 
+                          key={gender}
+                          className="border-2 rounded-lg px-6 py-3 cursor-pointer hover:bg-gray-50 transition-all flex-1 block"
+                          style={{
+                            borderColor: field.value === gender ? 'rgb(37 99 235)' : 'rgb(229 231 235)',
+                            backgroundColor: field.value === gender ? 'rgb(239 246 255)' : 'transparent'
+                          }}
+                        >
+                          <FormItem className="flex items-center justify-center space-x-2 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value={gender} className="w-5 h-5" />
+                            </FormControl>
+                            <div className="font-normal">
+                              {gender}
+                            </div>
+                          </FormItem>
+                        </label>
                       ))}
                     </RadioGroup>
                   </FormControl>
@@ -335,30 +344,63 @@ export function RegistrationForm() {
                       defaultValue={field.value}
                       className="flex flex-col gap-3"
                     >
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="full" />
-                        </FormControl>
-                        <FormLabel className="font-normal cursor-pointer">
-                          <span>전일 참석 (2박 3일) - </span>
-                          {isEarlyBirdPeriod ? (
-                            <>
-                              <span className="font-semibold text-blue-600">100,000원</span>
-                              <span className="text-xs text-gray-500 line-through ml-1">120,000원</span>
-                            </>
-                          ) : (
-                            <span className="font-semibold">120,000원</span>
-                          )}
-                        </FormLabel>
-                      </FormItem>
-                      <FormItem className="flex items-center space-x-3 space-y-0">
-                        <FormControl>
-                          <RadioGroupItem value="partial" />
-                        </FormControl>
-                        <FormLabel className="font-normal cursor-pointer">
-                          부분 참석 (목: 50,000원 / 금: 50,000원 / 토: 20,000원)
-                        </FormLabel>
-                      </FormItem>
+                      {/* 전일 참석 */}
+                      <label 
+                        className="border-2 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-all block"
+                        style={{
+                          borderColor: field.value === 'full' ? 'rgb(37 99 235)' : 'rgb(229 231 235)',
+                          backgroundColor: field.value === 'full' ? 'rgb(239 246 255)' : 'transparent'
+                        }}
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem 
+                              value="full" 
+                              className="w-5 h-5"
+                              onClick={() => {
+                                field.onChange('full');
+                                form.setValue('transportType', '대형버스를 이용한 본대 이동');
+                              }}
+                            />
+                          </FormControl>
+                          <div className="font-normal flex-1">
+                            <span>전일 참석 (2박 3일) - </span>
+                            {isEarlyBirdPeriod ? (
+                              <>
+                                <span className="font-semibold text-blue-600">100,000원</span>
+                                <span className="text-xs text-gray-500 line-through ml-1">120,000원</span>
+                              </>
+                            ) : (
+                              <span className="font-semibold">120,000원</span>
+                            )}
+                          </div>
+                        </FormItem>
+                      </label>
+
+                      {/* 부분 참석 */}
+                      <label 
+                        className="border-2 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-all block"
+                        style={{
+                          borderColor: field.value === 'partial' ? 'rgb(37 99 235)' : 'rgb(229 231 235)',
+                          backgroundColor: field.value === 'partial' ? 'rgb(239 246 255)' : 'transparent'
+                        }}
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem 
+                              value="partial" 
+                              className="w-5 h-5"
+                              onClick={() => {
+                                field.onChange('partial');
+                                form.setValue('transportType', '자차 (카풀 가능)');
+                              }}
+                            />
+                          </FormControl>
+                          <div className="font-normal flex-1">
+                            부분 참석 (목: 50,000원 / 금: 50,000원 / 토: 20,000원)
+                          </div>
+                        </FormItem>
+                      </label>
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
@@ -379,27 +421,37 @@ export function RegistrationForm() {
                         { value: 'day1', label: '1일차 (목요일)' },
                         { value: 'day2', label: '2일차 (금요일)' },
                         { value: 'day3', label: '3일차 (토요일)' },
-                      ].map((day) => (
-                        <div key={day.value} className="flex items-center space-x-2">
-                          <input
-                            type="checkbox"
-                            id={day.value}
-                            checked={field.value?.includes(day.value as any) || false}
-                            onChange={(e) => {
-                              const currentValue = field.value || [];
-                              if (e.target.checked) {
-                                field.onChange([...currentValue, day.value]);
-                              } else {
-                                field.onChange(currentValue.filter((v) => v !== day.value));
-                              }
+                      ].map((day) => {
+                        const isChecked = field.value?.includes(day.value as any) || false;
+                        return (
+                          <label 
+                            key={day.value}
+                            className="border rounded-lg px-4 py-2.5 cursor-pointer hover:bg-gray-50 transition-all flex items-center space-x-3 block"
+                            style={{
+                              borderColor: isChecked ? 'rgb(191 219 254)' : 'rgb(229 231 235)',
+                              backgroundColor: isChecked ? 'rgb(239 246 255)' : 'transparent'
                             }}
-                            className="w-4 h-4"
-                          />
-                          <label htmlFor={day.value} className="cursor-pointer">
-                            {day.label}
+                          >
+                            <input
+                              type="checkbox"
+                              id={day.value}
+                              checked={isChecked}
+                              onChange={(e) => {
+                                const currentValue = field.value || [];
+                                if (e.target.checked) {
+                                  field.onChange([...currentValue, day.value]);
+                                } else {
+                                  field.onChange(currentValue.filter((v) => v !== day.value));
+                                }
+                              }}
+                              className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            />
+                            <span className="text-sm font-normal flex-1">
+                              {day.label}
+                            </span>
                           </label>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                     <FormMessage />
                   </FormItem>
@@ -418,20 +470,29 @@ export function RegistrationForm() {
                     <RadioGroup
                       onValueChange={field.onChange}
                       value={field.value}
-                      className="flex flex-col gap-2"
+                      className="flex flex-col gap-3"
                     >
                       {(attendanceType === 'full' 
                         ? FULL_TRANSPORT_TYPES 
                         : PARTIAL_TRANSPORT_TYPES
                       ).map((transport) => (
-                        <FormItem key={transport} className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value={transport} />
-                          </FormControl>
-                          <FormLabel className="font-normal cursor-pointer">
-                            {transport}
-                          </FormLabel>
-                        </FormItem>
+                        <label 
+                          key={transport}
+                          className="border-2 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-all block"
+                          style={{
+                            borderColor: field.value === transport ? 'rgb(37 99 235)' : 'rgb(229 231 235)',
+                            backgroundColor: field.value === transport ? 'rgb(239 246 255)' : 'transparent'
+                          }}
+                        >
+                          <FormItem className="flex items-center space-x-3 space-y-0">
+                            <FormControl>
+                              <RadioGroupItem value={transport} className="w-5 h-5" />
+                            </FormControl>
+                            <div className="font-normal flex-1">
+                              {transport}
+                            </div>
+                          </FormItem>
+                        </label>
                       ))}
                     </RadioGroup>
                   </FormControl>
