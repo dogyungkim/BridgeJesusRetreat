@@ -91,13 +91,13 @@ export function RegistrationForm() {
         {/* 행사 정보 */}
         <Card>
           <CardHeader>
-            <CardTitle>2026 브릿지저스 겨울수련회</CardTitle>
+            <CardTitle className="text-center text-2xl">2026 브릿지저스 겨울수련회 ☃️💙</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div>
-              <p className="font-semibold text-gray-900">주제: 청지기 (청년이여, 지금 기도하라!)</p>
-              <p className="text-sm text-gray-600 mt-1">일시: 2026년 2월 5일(목) ~ 2월 7일(토)</p>
-              <p className="text-sm text-gray-600">장소: 경기 화성시 팔탄면 마당바위로 135-21 청호인재개발원</p>
+            <div className="text-center space-y-2">
+              <p className="text-lg">💌 주제: 청지기 (청년이여, 지금 기도하라!)</p>
+              <p className="text-base">🗓️ 일정: 2026년 2월 5일(목) ~ 2월 7일(토)</p>
+              <p className="text-base">📍 장소: 경기 화성시 팔탄면 마당바위로 135-21 청호인재개발원</p>
             </div>
 
             {/* 참가비 안내 */}
@@ -123,15 +123,21 @@ export function RegistrationForm() {
                   </span>
                 </div>
               </div>
-            </div>
-
-            {isEarlyBirdPeriod && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              {isEarlyBirdPeriod && (
+              <div className="mt-3 bg-blue-50 border border-blue-200 rounded-lg p-3">
                 <p className="text-sm font-medium text-blue-900">
                   🎉 현재 얼리버드 기간입니다! (~ 1월 25일)
                 </p>
               </div>
             )}
+              <div className="mt-3 p-2 bg-red-50 border border-red-200 rounded">
+                <p className="text-sm font-bold text-red-600">
+                  ⚠️ 부분참석은 숙박여부, 참여시간과 관계없이 수련회에 참여하는 일수로 계산됩니다.
+                </p>
+              </div>
+            </div>
+
+
           </CardContent>
         </Card>
 
@@ -434,8 +440,8 @@ export function RegistrationForm() {
               )}
             />
 
-            {/* 자차 선택 시 출발/귀가 정보 */}
-            {form.watch('transportType')?.includes('자차') && (
+            {/* 자차 또는 카풀 필요 선택 시 출발/귀가 정보 */}
+            {(form.watch('transportType')?.includes('자차') || form.watch('transportType')?.includes('카풀')) && (
               <>
                 <FormField
                   control={form.control}

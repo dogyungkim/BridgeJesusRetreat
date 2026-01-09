@@ -54,7 +54,7 @@ function SuccessContent() {
           <CardHeader>
             <CardTitle className="text-blue-900">입금 안내</CardTitle>
             <CardDescription className="text-blue-700">
-              아래 계좌로 참가비를 입금해주세요
+              아래 안내에 따라 참가비를 입금해주세요
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -64,18 +64,38 @@ function SuccessContent() {
                 {parseInt(cost).toLocaleString('ko-KR')}원
               </p>
             </div>
-            <div className="pt-4 border-t border-blue-200">
-              <p className="text-sm text-gray-700 mb-2">입금 계좌</p>
-              <div className="bg-white p-4 rounded-lg border border-blue-200">
-                <p className="text-lg font-semibold text-gray-900">
-                  농협 356-0694-7937-13
+            <div className="pt-4 border-t border-blue-200 space-y-3">
+              <div>
+                <p className="text-sm font-semibold text-gray-900 mb-2">1. 입금자명</p>
+                <p className="text-sm text-gray-700">
+                  <strong className="text-blue-700">&apos;마을+이름&apos;</strong>으로 입금해주세요
                 </p>
-                <p className="text-sm text-gray-600">예금주: 김재환</p>
+                <p className="text-xs text-gray-600 mt-1">
+                  예) 위너이수미, 조이홍길동
+                </p>
+              </div>
+              
+              <div>
+                <p className="text-sm font-semibold text-gray-900 mb-2">2. 입금 계좌</p>
+                <div className="bg-white p-4 rounded-lg border border-blue-200">
+                  <p className="text-lg font-semibold text-gray-900">
+                    농협 356-0694-7937-13
+                  </p>
+                  <p className="text-sm text-gray-600">예금주: 김재환</p>
+                </div>
+              </div>
+              
+              <div>
+                <p className="text-sm font-semibold text-gray-900 mb-2">3. 입금 확인</p>
+                <p className="text-sm text-gray-700">
+                  입금 후 확인 문자는 일괄로 발송될 예정입니다.
+                </p>
               </div>
             </div>
-            <div className="pt-2">
-              <p className="text-sm text-amber-700">
-                ⚠️ 입금자명은 <strong>{name}</strong>으로 부탁드립니다.
+            
+            <div className="pt-4 border-t border-red-200 bg-red-50 -mx-6 -mb-6 px-6 py-4 rounded-b-lg">
+              <p className="text-sm font-bold text-red-700 text-center">
+                ※ 수련회비 납입 후에는 환불이 불가합니다. ※
               </p>
             </div>
           </CardContent>
@@ -92,14 +112,18 @@ function SuccessContent() {
               <p>입금 완료 시 참가 등록이 확정됩니다.</p>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-blue-600 mt-1">📞</span>
-              <p>문의사항은 셀장 또는 마을장에게 연락주세요.</p>
-            </div>
-            <div className="flex items-start gap-2">
               <span className="text-blue-600 mt-1">🚌</span>
               <p>
                 이동 수단 및 일정 변경이 필요한 경우 반드시 셀장 또는 마을장에게 알려주세요.
               </p>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="text-blue-600 mt-1">📞</span>
+              <div>
+                <p className="font-semibold text-gray-900 mb-1">문의사항</p>
+                <p>이수미 행정국장에게 연락주세요</p>
+                <p className="text-blue-700 font-medium">010-3243-4279</p>
+              </div>
             </div>
           </CardContent>
         </Card>

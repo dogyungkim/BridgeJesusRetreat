@@ -17,8 +17,30 @@ export async function POST(request: NextRequest) {
       validatedData.attendanceType === 'partial' ? validatedData.attendanceDates : undefined
     );
 
-    // Supabase에 저장
+    // Supabase 클라이언트
     const supabase = getServiceSupabase();
+    
+    // 중복 신청 체크 (이름 + 전화번호)
+    const { data: existingRegistrations, error: checkError } = await supabase
+      .from('registrations')
+      .select('id, name, phone')
+      .eq('name', validatedData.name)
+      .eq('phone', validatedData.phone);
+    
+    if (checkError) {
+      console.error('Duplicate check error:', checkError);
+      // 체크 실패 시에도 진행 (로그만 남김)
+    }
+    
+    if (existingRegistrations && existingRegistrations.length > 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: '이미 동일한 이름과 전화번호로 신청된 내역이 있습니다. 중복 신청은 불가합니다.',
+        },
+        { status: 409 }
+      );
+    }
     
     const { data: registration, error: dbError } = await supabase
       .from('registrations')

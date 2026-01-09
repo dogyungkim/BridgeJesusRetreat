@@ -7,7 +7,7 @@ export default function Home() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
           {/* 로고 */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center">
             <Image 
               src="/BridgeJesusLogo.png" 
               alt="Bridge Jesus Logo" 
@@ -17,10 +17,6 @@ export default function Home() {
               priority
             />
           </div>
-          
-          <h1 className="text-4xl font-bold mb-2">
-            2026 브릿지저스 겨울수련회 신청 폼
-          </h1>
         </div>
 
         <RegistrationForm />

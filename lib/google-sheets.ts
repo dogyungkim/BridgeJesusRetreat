@@ -77,6 +77,14 @@ export async function appendToSheet(data: {
       return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
 
+    // 참석 날짜 포맷 (전일 참석이면 day1, day2, day3 자동 입력)
+    let attendanceDatesStr = '';
+    if (data.attendanceType === 'full') {
+      attendanceDatesStr = 'day1, day2, day3';
+    } else if (data.attendanceDates && data.attendanceDates.length > 0) {
+      attendanceDatesStr = data.attendanceDates.join(', ');
+    }
+
     // 데이터 추가
     await sheet.addRow({
       신청일시: formatDateTime(data.createdAt),
@@ -87,7 +95,7 @@ export async function appendToSheet(data: {
       연락처: data.phone,
       추가요청: data.requests || '',
       참석유형: data.attendanceType === 'full' ? '전일참석' : '부분참석',
-      참석날짜: data.attendanceDates?.join(', ') || 'N/A',
+      참석날짜: attendanceDatesStr,
       이동수단: data.transportType,
       출발정보: data.departureInfo || '',
       귀가정보: data.returnInfo || '',
