@@ -58,7 +58,9 @@ export async function appendToSheet(data: {
         '연락처',
         '추가요청',
         '참석유형',
-        '참석날짜',
+        'Day1(목)',
+        'Day2(금)',
+        'Day3(토)',
         '이동수단',
         '출발정보',
         '귀가정보',
@@ -77,12 +79,19 @@ export async function appendToSheet(data: {
       return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
 
-    // 참석 날짜 포맷 (전일 참석이면 day1, day2, day3 자동 입력)
-    let attendanceDatesStr = '';
+    // 각 날짜별 참석 여부 계산 (전일 참석이면 모두 O, 부분 참석이면 선택된 날짜만 O)
+    let day1 = 'X';
+    let day2 = 'X';
+    let day3 = 'X';
+    
     if (data.attendanceType === 'full') {
-      attendanceDatesStr = 'day1, day2, day3';
+      day1 = 'O';
+      day2 = 'O';
+      day3 = 'O';
     } else if (data.attendanceDates && data.attendanceDates.length > 0) {
-      attendanceDatesStr = data.attendanceDates.join(', ');
+      if (data.attendanceDates.includes('day1')) day1 = 'O';
+      if (data.attendanceDates.includes('day2')) day2 = 'O';
+      if (data.attendanceDates.includes('day3')) day3 = 'O';
     }
 
     // 데이터 추가
@@ -95,7 +104,9 @@ export async function appendToSheet(data: {
       연락처: data.phone,
       추가요청: data.requests || '',
       참석유형: data.attendanceType === 'full' ? '전일참석' : '부분참석',
-      참석날짜: attendanceDatesStr,
+      'Day1(목)': day1,
+      'Day2(금)': day2,
+      'Day3(토)': day3,
       이동수단: data.transportType,
       출발정보: data.departureInfo || '',
       귀가정보: data.returnInfo || '',

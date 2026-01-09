@@ -11,7 +11,11 @@ function SuccessContent() {
   const [mounted, setMounted] = useState(false);
 
   const name = searchParams.get('name') || '참가자';
+  const village = searchParams.get('village') || '';
   const cost = searchParams.get('cost') || '0';
+  
+  // 마을 이름을 짧게 표시 (예: "위너마을" -> "위너")
+  const shortVillage = village.replace('마을', '').replace('(새가족)', '');
 
   useEffect(() => {
     setMounted(true);
@@ -67,12 +71,20 @@ function SuccessContent() {
             <div className="pt-4 border-t border-blue-200 space-y-3">
               <div>
                 <p className="text-sm font-semibold text-gray-900 mb-2">1. 입금자명</p>
-                <p className="text-sm text-gray-700">
-                  <strong className="text-blue-700">&apos;마을+이름&apos;</strong>으로 입금해주세요
-                </p>
-                <p className="text-xs text-gray-600 mt-1">
-                  예) 위너이수미, 조이홍길동
-                </p>
+                {shortVillage && shortVillage !== '없음' ? (
+                  <p className="text-sm text-gray-700">
+                    <strong className="text-blue-700 text-lg">{shortVillage}{name}</strong>으로 입금해주세요
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-sm text-gray-700">
+                      <strong className="text-blue-700">&apos;마을+이름&apos;</strong>으로 입금해주세요
+                    </p>
+                    <p className="text-xs text-gray-600 mt-1">
+                      예) 위너이수미, 조이홍길동
+                    </p>
+                  </>
+                )}
               </div>
               
               <div>
