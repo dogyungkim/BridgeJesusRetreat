@@ -1,18 +1,26 @@
 import { RegistrationForm } from '@/components/registration-form';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <main className="min-h-screen p-4 py-8 bg-gradient-to-b from-blue-50 to-white">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
+          {/* 로고 */}
+          <div className="flex justify-center mb-6">
+            <Image 
+              src="/BridgeJesusLogo.png" 
+              alt="Bridge Jesus Logo" 
+              width={180} 
+              height={60}
+              className="object-contain"
+              priority
+            />
+          </div>
+          
           <h1 className="text-4xl font-bold mb-2">
-            2026 브릿지저스 겨울수련회
+            2026 브릿지저스 겨울수련회 신청 폼
           </h1>
-          <p className="text-xl text-gray-700 mb-1">청지기</p>
-          <p className="text-lg text-gray-600 mb-4">청년이여, 지금 기도하라!</p>
-          <p className="text-sm text-gray-500 italic">
-            &ldquo;새벽 아직도 밝기 전에 예수께서 일어나 나가 한적한 곳으로 가사 거기서 기도하시더니&rdquo; (마가복음 1:35)
-          </p>
         </div>
 
         <RegistrationForm />
