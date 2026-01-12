@@ -87,19 +87,19 @@ export function Countdown({ targetDate }: CountdownProps) {
           
           <CardContent className="space-y-6 pb-8">
             {/* 등록 오픈 안내 */}
-            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 shadow-md">
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 shadow-md px-2 md:px-8">
               <p className="text-center text-lg font-semibold text-blue-900 mb-4">
                 🎉 등록이 곧 시작됩니다!
               </p>
               <p className="text-center text-gray-700 mb-2">
-                <span className="font-bold">2026년 1월 18일(토) 오후 6시</span>부터
+                <span className="font-bold">2026년 1월 18일(일) 오후 6시</span>부터
               </p>
               <p className="text-center text-gray-700 mb-6">
                 신청이 시작됩니다
               </p>
 
               {/* 카운트다운 */}
-              <div className="grid grid-cols-4 gap-1 md:gap-3 max-w-md mx-auto">
+              <div className="grid grid-cols-4 gap-1 md:gap-4 px-0 md:px-0 w-full mx-auto">
                 {[
                   { label: '일', value: timeLeft.days },
                   { label: '시간', value: timeLeft.hours },
@@ -108,12 +108,12 @@ export function Countdown({ targetDate }: CountdownProps) {
                 ].map((item, index) => (
                   <div 
                     key={index}
-                    className="bg-white rounded-lg p-2 md:p-4 shadow-md border-2 border-blue-100 flex items-center justify-center gap-1"
+                    className="bg-white rounded-lg p-2 px-1 md:p-5 shadow-md border-2 border-blue-100 flex items-center justify-center gap-1"
                   >
-                    <div className="text-2xl md:text-4xl font-bold text-blue-600 mb-0.5 md:mb-1">
-                      {String(item.value).padStart(1, '0')}
+                    <div className="text-2xl md:text-4xl font-bold text-blue-600">
+                      {String(item.value).padStart(2, '0')}
                     </div>
-                    <div className="text-xs md:text-sm text-gray-600 font-medium">
+                    <div className="text-xs md:text-lg text-gray-600 font-medium">
                       {item.label}
                     </div>
                   </div>
