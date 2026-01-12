@@ -10,7 +10,7 @@
  * - 부분 참석: 목요일 50,000원 / 금요일 50,000원 / 토요일 20,000원
  */
 
-const EARLY_BIRD_START = new Date('2026-01-09T00:00:00+09:00');
+const EARLY_BIRD_START = new Date('2026-01-11T18:00:00+09:00');
 const EARLY_BIRD_END = new Date('2026-01-25T23:59:59+09:00');
 const REGISTRATION_END = new Date('2026-02-01T23:59:59+09:00');
 
@@ -22,6 +22,18 @@ const COSTS = {
   DAY2: 50000, // 금요일
   DAY3: 20000, // 토요일
 };
+
+/**
+ * 등록이 오픈되었는지 확인
+ * 얼리버드 시작 시간과 동일
+ */
+/**
+ * 등록 오픈 시간 가져오기
+ * 얼리버드 시작 시간과 동일
+ */
+export function getRegistrationOpenTime(): Date {
+  return EARLY_BIRD_START;
+}
 
 /**
  * 현재 날짜가 얼리버드 기간인지 확인

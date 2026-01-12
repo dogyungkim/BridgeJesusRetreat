@@ -352,11 +352,11 @@ export function RegistrationForm() {
                           backgroundColor: field.value === 'full' ? 'rgb(239 246 255)' : 'transparent'
                         }}
                       >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-start space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem 
                               value="full" 
-                              className="w-5 h-5"
+                              className="w-5 h-5 mt-0.5"
                               onClick={() => {
                                 field.onChange('full');
                                 form.setValue('transportType', '대형버스를 이용한 본대 이동');
@@ -364,15 +364,17 @@ export function RegistrationForm() {
                             />
                           </FormControl>
                           <div className="font-normal flex-1">
-                            <span>전일 참석 (2박 3일) - </span>
-                            {isEarlyBirdPeriod ? (
-                              <>
-                                <span className="font-semibold text-blue-600">100,000원</span>
-                                <span className="text-xs text-gray-500 line-through ml-1">120,000원</span>
-                              </>
-                            ) : (
-                              <span className="font-semibold">120,000원</span>
-                            )}
+                            <div>전일 참석 (2박 3일)</div>
+                            <div className="text-sm text-gray-600 mt-1">
+                              {isEarlyBirdPeriod ? (
+                                <>
+                                  <span className="font-semibold text-blue-600">100,000원</span>
+                                  <span className="text-xs line-through ml-1">120,000원</span>
+                                </>
+                              ) : (
+                                <span className="font-semibold">120,000원</span>
+                              )}
+                            </div>
                           </div>
                         </FormItem>
                       </label>
@@ -385,11 +387,11 @@ export function RegistrationForm() {
                           backgroundColor: field.value === 'partial' ? 'rgb(239 246 255)' : 'transparent'
                         }}
                       >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormItem className="flex items-start space-x-3 space-y-0">
                           <FormControl>
                             <RadioGroupItem 
                               value="partial" 
-                              className="w-5 h-5"
+                              className="w-5 h-5 mt-0.5"
                               onClick={() => {
                                 field.onChange('partial');
                                 form.setValue('transportType', '자차 (카풀 가능)');
@@ -397,7 +399,10 @@ export function RegistrationForm() {
                             />
                           </FormControl>
                           <div className="font-normal flex-1">
-                            부분 참석 (목: 50,000원 / 금: 50,000원 / 토: 20,000원)
+                            <div>부분 참석</div>
+                            <div className="text-sm text-gray-600 mt-1">
+                              목: 50,000원 / 금: 50,000원 / 토: 20,000원
+                            </div>
                           </div>
                         </FormItem>
                       </label>
@@ -504,12 +509,18 @@ export function RegistrationForm() {
             {/* 자차 또는 카풀 필요 선택 시 출발/귀가 정보 */}
             {(form.watch('transportType')?.includes('자차') || form.watch('transportType')?.includes('카풀')) && (
               <>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-2">
+                  <p className="text-sm text-blue-900">
+                    ℹ️ 카풀 매칭을 위해 출발 및 귀가 정보를 꼭 입력해주세요
+                  </p>
+                </div>
+
                 <FormField
                   control={form.control}
                   name="departureInfo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>출발 정보</FormLabel>
+                      <FormLabel>출발 정보 *</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="예: 1일차 18시 동백역" 
@@ -529,7 +540,7 @@ export function RegistrationForm() {
                   name="returnInfo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>귀가 정보</FormLabel>
+                      <FormLabel>귀가 정보 *</FormLabel>
                       <FormControl>
                         <Input 
                           placeholder="예: 3일차 집회 후 동백역" 
@@ -544,9 +555,11 @@ export function RegistrationForm() {
                   )}
                 />
 
-                <p className="text-sm text-amber-600">
-                  ⚠️ 변경 사항 발생 시 셀장 또는 마을장에게 연락해주세요
-                </p>
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                  <p className="text-sm text-amber-700">
+                    ⚠️ 변경 사항 발생 시 셀장 또는 마을장에게 연락해주세요
+                  </p>
+                </div>
               </>
             )}
           </CardContent>

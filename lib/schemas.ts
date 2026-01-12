@@ -30,6 +30,7 @@ export const FULL_TRANSPORT_TYPES = [
   '대형버스를 이용한 본대 이동',
   '자차 (카풀 가능)',
   '자차 (카풀 어려움)',
+  '카풀 필요',
 ] as const;
 
 // 부분 참석 이동 수단
@@ -85,6 +86,26 @@ const fullAttendanceSchema = z.object({
   }),
   departureInfo: z.string().optional(),
   returnInfo: z.string().optional(),
+}).superRefine((data, ctx) => {
+  // 자차 또는 카풀 필요 선택 시 출발/귀가 정보 필수
+  const needsTransportInfo = data.transportType.includes('자차') || data.transportType === '카풀 필요';
+  
+  if (needsTransportInfo) {
+    if (!data.departureInfo || data.departureInfo.trim() === '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: '출발 정보를 입력해주세요 (예: 1일차 18시 동백역)',
+        path: ['departureInfo'],
+      });
+    }
+    if (!data.returnInfo || data.returnInfo.trim() === '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: '귀가 정보를 입력해주세요 (예: 3일차 집회 후 동백역)',
+        path: ['returnInfo'],
+      });
+    }
+  }
 });
 
 // 부분 참석 스키마
@@ -98,6 +119,26 @@ const partialAttendanceSchema = z.object({
   }),
   departureInfo: z.string().optional(),
   returnInfo: z.string().optional(),
+}).superRefine((data, ctx) => {
+  // 자차 또는 카풀 필요 선택 시 출발/귀가 정보 필수
+  const needsTransportInfo = data.transportType.includes('자차') || data.transportType === '카풀 필요';
+  
+  if (needsTransportInfo) {
+    if (!data.departureInfo || data.departureInfo.trim() === '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: '출발 정보를 입력해주세요 (예: 1일차 18시 동백역)',
+        path: ['departureInfo'],
+      });
+    }
+    if (!data.returnInfo || data.returnInfo.trim() === '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: '귀가 정보를 입력해주세요 (예: 3일차 집회 후 동백역)',
+        path: ['returnInfo'],
+      });
+    }
+  }
 });
 
 // 최종 등록 폼 스키마
