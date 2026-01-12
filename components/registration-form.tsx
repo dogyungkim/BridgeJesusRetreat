@@ -275,7 +275,8 @@ export function RegistrationForm() {
                         value={formatPhoneNumber(field.value || '')}
                         onChange={(e) => {
                           const numbers = e.target.value.replace(/[^0-9]/g, '');
-                          field.onChange(numbers);
+                          const limitedNumbers = numbers.slice(0, 11);
+                          field.onChange(limitedNumbers);
                         }}
                       />
                     </FormControl>
