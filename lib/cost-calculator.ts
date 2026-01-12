@@ -10,7 +10,7 @@
  * - 부분 참석: 목요일 50,000원 / 금요일 50,000원 / 토요일 20,000원
  */
 
-const EARLY_BIRD_START = new Date('2026-01-11T18:00:00+09:00');
+const EARLY_BIRD_START = new Date('2026-01-18T18:00:00+09:00');
 const EARLY_BIRD_END = new Date('2026-01-25T23:59:59+09:00');
 const REGISTRATION_END = new Date('2026-02-01T23:59:59+09:00');
 
