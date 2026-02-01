@@ -12,7 +12,7 @@
 
 const EARLY_BIRD_START = new Date('2026-01-18T18:00:00+09:00');
 const EARLY_BIRD_END = new Date('2026-01-25T23:59:59+09:00');
-const REGISTRATION_END = new Date('2026-02-01T23:59:59+09:00');
+const REGISTRATION_END = new Date('2026-02-04T23:59:59+09:00');
 
 // 참가비 상수
 const COSTS = {
@@ -78,7 +78,7 @@ export function calculateFullAttendanceCost(date: Date = new Date()): number {
  */
 export function calculatePartialAttendanceCost(days: string[]): number {
   let total = 0;
-  
+
   if (days.includes('day1')) {
     total += COSTS.DAY1;
   }
@@ -88,7 +88,7 @@ export function calculatePartialAttendanceCost(days: string[]): number {
   if (days.includes('day3')) {
     total += COSTS.DAY3;
   }
-  
+
   return total;
 }
 
@@ -103,11 +103,11 @@ export function calculateTotalCost(
   if (attendanceType === 'full') {
     return calculateFullAttendanceCost(registrationDate);
   }
-  
+
   if (!attendanceDates || attendanceDates.length === 0) {
     return 0;
   }
-  
+
   return calculatePartialAttendanceCost(attendanceDates);
 }
 
