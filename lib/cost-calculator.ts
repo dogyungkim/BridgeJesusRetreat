@@ -12,7 +12,7 @@
 
 const EARLY_BIRD_START = new Date('2026-01-18T18:00:00+09:00');
 const EARLY_BIRD_END = new Date('2026-01-25T23:59:59+09:00');
-const REGISTRATION_END = new Date('2026-02-04T23:59:59+09:00');
+const REGISTRATION_END = new Date('2026-02-09T23:59:59+09:00');
 
 // 참가비 상수
 const COSTS = {
